@@ -1,0 +1,9 @@
+on: [push]
+jobs:
+  print-ref:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print branch/tag
+        run: echo "The ref is ${{ github.ref }}"
+      - name: Print short branch/tag
+        run: echo "The ref name is ${{ github.ref_name }}"
