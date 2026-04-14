@@ -19,6 +19,14 @@ jobs:
                   if (Test-Path "requirements.txt") {
                     pip install -r requirements.txt
                   }
-            - name: Test with pytest
-              run: |
-                  pytest -v
+            - name: Run pytest with coverage
+              run: pytest --cov=src --cov-report=lcov --cov-fail-under=80 --junit-xml=reports/pytest-results.xml -x -v
+
+            - name: Publish test results
+              uses: dorny/test-reporter@v1
+              if: always()
+              with:
+                  name: "Pytest · Python ${{ matrix.python-version }}"
+                  path: reports/pytest-results.xml
+                  reporter: java-junit
+                  fail-on-error: true
