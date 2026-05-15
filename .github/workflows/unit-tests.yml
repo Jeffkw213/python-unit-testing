@@ -1,5 +1,5 @@
 name: Unit Tests
-on: [push]
+on: [ push ]
 
 permissions:
   checks: write
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        python-version: ["3.10"]
+        python-version: [ "3.10" ]
     steps:
       - uses: actions/checkout@v4
 
@@ -31,14 +31,16 @@ jobs:
         run: New-Item -ItemType Directory -Force -Path reports
 
       - name: Run pytest with coverage
-        run: pytest --cov=app --cov-report=xml:reports/coverage.xml --junitxml=reports/pytest-results.xml
+        run: pytest --cov=app --cov-report=xml:reports/coverage.xml
+          --junitxml=reports/pytest-results.xml --html=reports/report.html
+          --self-contained-html
 
       - name: Publish test results
         uses: dorny/test-reporter@v1
         if: always()
         with:
           name: Pytest Results
-          path: reports/pytest-results.xml
+          path: reports/pytest-results.html
           reporter: java-junit
           fail-on-error: true
 
