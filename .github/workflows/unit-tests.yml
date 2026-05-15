@@ -39,7 +39,7 @@ jobs:
         with:
           name: Pytest Results
           path: reports/pytest-results.xml
-          reporter: python-xunit        # ← instead of java-junit
+          reporter: java-junit       # ← instead of java-junit
           fail-on-error: true
 
       - name: Archive test results
