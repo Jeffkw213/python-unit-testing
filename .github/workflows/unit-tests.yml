@@ -41,7 +41,7 @@ jobs:
         with:
           name: Pytest Results
           path: reports/pytest-results.html
-          reporter: java-junit
+          reporter: python-xunit
           fail-on-error: true
 
       - name: Archive test results
