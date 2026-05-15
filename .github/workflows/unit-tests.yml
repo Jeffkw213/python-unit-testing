@@ -23,7 +23,7 @@ jobs:
               run: pytest --cov=app --cov-report=xml --junitxml=reports/pytest-results.xml
 
             - name: Archive pytest results
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: pytest-results
                   path: reports/pytest-results.xml
