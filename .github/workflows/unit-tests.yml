@@ -31,9 +31,7 @@ jobs:
         run: New-Item -ItemType Directory -Force -Path reports
 
       - name: Run pytest with coverage
-        run: pytest --cov=app --cov-report=xml:reports/coverage.xml
-          --junitxml=reports/pytest-results.xml --html=reports/report.html
-          --self-contained-html
+        run: pytest --cov=app --cov-report=xml:reports/coverage.xml --junitxml=reports/pytest-results.xml -o junit_family=xunit2 --html=reports/report.html --self-contained-html
 
       - name: Publish test results
         uses: dorny/test-reporter@v1
@@ -41,7 +39,7 @@ jobs:
         with:
           name: Pytest Results
           path: reports/pytest-results.xml
-          reporter: java-junit
+          reporter: python-xunit        # ← instead of java-junit
           fail-on-error: true
 
       - name: Archive test results
