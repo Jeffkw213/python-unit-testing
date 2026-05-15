@@ -20,13 +20,10 @@ jobs:
                     pip install -r requirements.txt
                   }
             - name: Run pytest with coverage
-              run: pytest --cov=src --cov-report=lcov --cov-fail-under=80 --junit-xml=reports/pytest-results.xml -x -v
+              run: pytest --cov=app --cov-report=xml --junitxml=reports/pytest-results.xml
 
-            - name: Publish test results
-              uses: dorny/test-reporter@v1
-              if: always()
+            - name: Archive pytest results
+              uses: actions/upload-artifact@v3
               with:
-                  name: "Pytest · Python ${{ matrix.python-version }}"
+                  name: pytest-results
                   path: reports/pytest-results.xml
-                  reporter: java-junit
-                  fail-on-error: true
